@@ -5,7 +5,7 @@ import (
 )
 
 /*
-* Takes a string and returns all subsets of
+* Takes a string and returns all subsets of the strings
  */
 func PrintAllSubsets(input string) map[string]bool {
 
@@ -14,11 +14,9 @@ func PrintAllSubsets(input string) map[string]bool {
 	fmt.Println(output)
 
 	return output
-
 }
 
 func subSetUtil(input, s string, output map[string]bool) {
-	fmt.Println(input, s)
 	ln := len(input)
 	if ln == 0 {
 		if len(s) > 0 {
