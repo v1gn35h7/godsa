@@ -244,7 +244,7 @@ func GetGraphListRep() *Graph {
 	graph.edges = append(graph.edges, edge{0, 1, 5})
 
 	// add edge 0-2 (or A-C in above figure)
-	graph.edges = append(graph.edges, edge{0, 2, 4})
+	//graph.edges = append(graph.edges, edge{0, 2, 4})
 
 	// add edge 1-2 (or B-C in above figure)
 	graph.edges = append(graph.edges, edge{1, 2, 3})
@@ -256,13 +256,13 @@ func GetGraphListRep() *Graph {
 	graph.edges = append(graph.edges, edge{1, 4, 2})
 
 	// add edge 3-2 (or D-C in above figure)
-	graph.edges = append(graph.edges, edge{3, 2, 5})
+	//graph.edges = append(graph.edges, edge{3, 2, 5})
 
 	// add edge 3-1 (or D-B in above figure)
-	graph.edges = append(graph.edges, edge{3, 1, 1})
+	//graph.edges = append(graph.edges, edge{3, 1, 1})
 
 	// add edge 4-3 (or E-D in above figure)
-	graph.edges = append(graph.edges, edge{4, 3, 3})
+	//graph.edges = append(graph.edges, edge{4, 3, 3})
 
 	return graph
 }
@@ -288,4 +288,33 @@ func dfs(graph [5][5]int, visited []bool, x, v int) {
 			dfs(graph, visited, i, v)
 		}
 	}
+}
+
+func (grph *Graph) UnionsetCyclic() bool {
+	uset := make([]int, grph.e)
+
+	for i := 0; i < grph.v; i++ {
+		uset[i] = i
+	}
+
+	for _, v := range grph.edges {
+		x := findSet(uset, v.u)
+		y := findSet(uset, v.v)
+
+		if x == y {
+			return true
+		}
+
+		uset[x] = y
+	}
+
+	return false
+}
+
+func findSet(set []int, v int) int {
+	if set[v] == v {
+		return v
+	}
+
+	return findSet(set, set[v])
 }

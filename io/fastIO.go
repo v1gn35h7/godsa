@@ -17,7 +17,7 @@ func (io FastIO) GetArrayInputs() [][]int {
 	input := make([][]int, 0)
 
 	for i := 0; i < testCases; i++ {
-		inp := io.scanLine(ioreader)
+		inp := io.ScanLine(ioreader)
 		difs := strings.Split(inp, ",")
 		inputTemp := make([]int, 0)
 
@@ -35,7 +35,7 @@ func (io FastIO) GetArrayInputs() [][]int {
 	return input
 }
 
-func (io FastIO) scanLine(ioreader *bufio.Reader) string {
+func (io FastIO) ScanLine(ioreader *bufio.Reader) string {
 	fmt.Println("Enter test case")
 	s, _ := ioreader.ReadString('\n')
 	return s

@@ -1,6 +1,7 @@
 package algo
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -55,4 +56,59 @@ func KnapSack01(n, maxw int16, w, p []int16) int16 {
 	}
 
 	return dp[n][maxw]
+}
+
+func BellNumber(n int) int {
+	dp := make([][]int, n+1)
+
+	for i := 0; i <= n; i++ {
+		dp[i] = make([]int, n+1)
+	}
+	dp[0][0] = 1
+
+	for i := 1; i <= n; i++ {
+		dp[i][0] = dp[i-1][i-1]
+		for j := 1; j <= n; j++ {
+			dp[i][j] = dp[i][j-1] + dp[i-1][j-1]
+		}
+	}
+
+	fmt.Println(dp)
+	return dp[n][n]
+}
+
+// gfg.org/coin-change-dp-7/
+// 1D approach
+func CoinChangeDp(coins []int, sum int) int {
+	n := len(coins)
+	dp := make([]int, sum+1)
+	dp[0] = 1
+
+	for i := 0; i < n; i++ {
+		for j := coins[i]; j <= sum; j++ {
+			fmt.Println(j, i, coins[i], dp[j], j-coins[i], dp[j-coins[i]], dp[j]+dp[j-coins[i]])
+			dp[j] += dp[j-coins[i]]
+		}
+	}
+
+	fmt.Println(dp)
+	return dp[sum]
+}
+
+// #google
+// gfg.org/cutting-a-rod-dp-13/
+func RodCutting(prices []int, n int) int {
+
+	dp := make([]int, n+1)
+	dp[0] = 0
+
+	for i := 1; i <= n; i++ {
+		max_val := math.MinInt
+		for j := 0; j < i; j++ {
+			max_val = int(math.Max(float64(max_val), float64(prices[j]+dp[i-j-1])))
+		}
+		dp[i] = max_val
+	}
+
+	return dp[n]
 }

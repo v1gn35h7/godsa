@@ -33,8 +33,3 @@ func merge(list1 []int64, list2 []int64) []int64 {
 	}
 	return res
 }
-
-/*
-* Sorting based on callback
- */
- 
