@@ -1,5 +1,5 @@
 module github.com/vicky1115050/godsa
 
-go 1.19
+go 1.21
 
-require github.com/confluentinc/confluent-kafka-go/v2 v2.1.1
+require golang.org/x/sync v0.1.0
