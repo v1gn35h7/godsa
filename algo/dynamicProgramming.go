@@ -112,3 +112,25 @@ func RodCutting(prices []int, n int) int {
 
 	return dp[n]
 }
+
+func WordBreak(input string, dic []string) bool {
+	hm := make(map[string]bool)
+
+	for _, v := range dic {
+		hm[v] = true
+	}
+
+	dp := make([]bool, len(input)+1)
+	dp[0] = true
+
+	for i := 1; i <= len(input); i++ {
+		for j := 0; j < i; j++ {
+			subs := string(input[j:i])
+			if hm[subs] {
+				dp[i] = true && dp[i-len(subs)]
+			}
+		}
+	}
+
+	return dp[len(input)]
+}
