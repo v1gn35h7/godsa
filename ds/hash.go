@@ -1,6 +1,11 @@
 package ds
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strconv"
+	"strings"
+)
 
 type Hash struct{}
 
@@ -43,4 +48,56 @@ func (hs Hash) longestSubSequence(list []int) {
 
 	fmt.Println(m)
 
+}
+
+func combinationSum3(k int, n int) [][]int {
+	res := make([][]int, 0)
+
+	if k > n {
+		return res
+	}
+
+	hasthbl := make(map[string]bool)
+	queue := make([]string, 0)
+
+	for i := 1; i <= 9; i++ {
+		v := strconv.Itoa(i)
+		queue = append(queue, v)
+	}
+
+	for len(queue) > 0 {
+		head := queue[0]
+		queue = queue[1:]
+
+		if len(head) == k {
+			tmp := 0
+			key := ""
+			chars := []byte(head)
+			comb := make([]int, 0)
+			for i := 0; i < k; i++ {
+				v, _ := strconv.Atoi(string(chars[i]))
+				comb = append(comb, v)
+				tmp += v
+			}
+			if tmp == n {
+				sort.Slice(chars, func(i, j int) bool { return string(chars[i]) > string(chars[j]) })
+				key = string(chars)
+				if hasthbl[key] == false {
+					hasthbl[key] = true
+					res = append(res, comb)
+				}
+			}
+
+		} else {
+			for i := 1; i <= 9; i++ {
+				v := strconv.Itoa(i)
+				if !strings.Contains(head, v) {
+					queue = append(queue, head+v)
+				}
+			}
+		}
+
+	}
+
+	return res
 }
