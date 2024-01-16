@@ -30,3 +30,21 @@ func subSetUtil(input, s string, output map[string]bool) {
 	subSetUtil(input[:(ln-1)], input[(ln-1):], output)
 	subSetUtil(input[:(ln-1)], s, output)
 }
+
+// gfg.org/coin-change-dp-7/
+func CoinChange(list []int, n, sum int) int {
+	if sum == 0 {
+		return 1
+	}
+
+	if sum < 0 {
+		return 0
+	}
+
+	if n <= 0 {
+		return 0
+	}
+
+	return CoinChange(list, n, sum-list[n-1]) + CoinChange(list, n-1, sum)
+
+}

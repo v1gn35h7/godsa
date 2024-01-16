@@ -3,7 +3,6 @@ package algo
 import (
 	"fmt"
 	"math"
-	"strings"
 )
 
 /*
@@ -57,132 +56,81 @@ func KnapSack01(n, maxw int16, w, p []int16) int16 {
 	return dp[n][maxw]
 }
 
-func lengthOfLongestPalindromeSubstring(s string) int16 {
+func BellNumber(n int) int {
+	dp := make([][]int, n+1)
 
-	chrs := []rune(s)
-	dp := make([][]int16, 0)
-	n := int16(len(s))
-
-	var x int16
-	for x = 0; x <= n; x++ {
-		r := make([]int16, n+1)
-		dp = append(dp, r)
+	for i := 0; i <= n; i++ {
+		dp[i] = make([]int, n+1)
 	}
+	dp[0][0] = 1
 
-	for i := 0; i <= int(n); i++ {
-		for j := 0; j <= i; j++ {
-			if j > 2 {
-				break
-			}
-			dp[i][j] = int16(j)
+	for i := 1; i <= n; i++ {
+		dp[i][0] = dp[i-1][i-1]
+		for j := 1; j <= n; j++ {
+			dp[i][j] = dp[i][j-1] + dp[i-1][j-1]
 		}
 	}
 
 	fmt.Println(dp)
-
-	k := int16(3)
-
-	for i := int16(3); i <= n; i++ {
-		for j := int16(3); j <= k; j++ {
-
-			if isPalindrome(chrs[:j]) {
-
-				dp[i][j] = j
-
-			} else {
-				var v int16
-				if float64(dp[i][j-1]) == float64(dp[i-1][j-1])+float64(1) {
-					v = dp[i][j-1]
-				} else {
-					v = int16(math.Max(float64(dp[i][j-1]), float64(dp[i-1][j-1])))
-				}
-				dp[i][j] = v
-			}
-		}
-		k++
-	}
-
 	return dp[n][n]
 }
 
-func longestPalindrome(s string) string {
-	chrs := []rune(s)
-	dp := make([][]string, 0)
-	n := int16(len(s))
+// gfg.org/coin-change-dp-7/
+// 1D approach
+func CoinChangeDp(coins []int, sum int) int {
+	n := len(coins)
+	dp := make([]int, sum+1)
+	dp[0] = 1
 
-	var x int16
-	for x = 0; x <= n; x++ {
-		r := make([]string, n+1)
-		dp = append(dp, r)
-	}
-
-	for i := 0; i <= int(n); i++ {
-		for j := 0; j <= i; j++ {
-			if j > 2 {
-				break
-			}
-
-			if j == 0 || i == 0 {
-				dp[i][j] = " "
-			} else {
-				v := string(chrs[i-j : i])
-				if isPalindrome([]rune(v)) {
-					dp[i][j] = v
-				} else {
-					dp[i][j] = dp[i-1][j-1]
-				}
-			}
+	for i := 0; i < n; i++ {
+		for j := coins[i]; j <= sum; j++ {
+			fmt.Println(j, i, coins[i], dp[j], j-coins[i], dp[j-coins[i]], dp[j]+dp[j-coins[i]])
+			dp[j] += dp[j-coins[i]]
 		}
 	}
 
-	k := int16(3)
-
-	for i := int16(3); i <= n; i++ {
-		for j := int16(3); j <= k; j++ {
-
-			if isPalindrome(chrs[:j]) {
-
-				dp[i][j] = string(chrs[:j])
-
-			} else {
-				v := string(chrs[i-j : i])
-				if isPalindrome([]rune(v)) && len(dp[i-1][j-1]) > len(v) {
-					dp[i][j] = dp[i-1][j-1]
-				} else {
-					if isPalindrome([]rune(v)) && len(dp[i-1][j-1]) > len(v) {
-						dp[i][j] = v
-					} else {
-						if len(dp[i-1][j-1]) > len(dp[i][j-1]) {
-							dp[i][j] = dp[i-1][j-1]
-						} else {
-							dp[i][j] = dp[i][j-1]
-						}
-
-					}
-				}
-			}
-			fmt.Println(dp[i])
-		}
-
-		k++
-	}
-
-	return dp[n][n]
+	fmt.Println(dp)
+	return dp[sum]
 }
 
-func isPalindrome(str []rune) bool {
-	var revStr []rune
-	stack := make([]rune, 0)
+// #google
+// gfg.org/cutting-a-rod-dp-13/
+func RodCutting(prices []int, n int) int {
 
-	for i := 0; i < len(str); i++ {
-		stack = append(stack, str[i])
+	dp := make([]int, n+1)
+	dp[0] = 0
+
+	for i := 1; i <= n; i++ {
+		max_val := math.MinInt
+		for j := 0; j < i; j++ {
+			max_val = int(math.Max(float64(max_val), float64(prices[j]+dp[i-j-1])))
+		}
+		dp[i] = max_val
 	}
 
-	for j := len(stack) - 1; j >= 0; j-- {
-		revStr = append(revStr, stack[j])
+	return dp[n]
+}
+
+func WordBreak(input string, dic []string) bool {
+	hm := make(map[string]bool)
+
+	for _, v := range dic {
+		hm[v] = true
 	}
 
-	return strings.TrimSpace(string(str)) == strings.TrimSpace(string(revStr))
+	dp := make([]bool, len(input)+1)
+	dp[0] = true
+
+	for i := 1; i <= len(input); i++ {
+		for j := 0; j < i; j++ {
+			subs := string(input[j:i])
+			if hm[subs] {
+				dp[i] = true && dp[i-len(subs)]
+			}
+		}
+	}
+
+	return dp[len(input)]
 }
 
 func PlanidromPartintion(inpt string) int {

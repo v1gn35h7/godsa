@@ -54,7 +54,7 @@ func kLargestElemenets(difs []string, k int) {
 	fmt.Printf("\n")
 }
 
-// Finf Kthe Largest/Smallest elememnt
+// Find Kthe Largest/Smallest elememnt
 func kthLargestElemenet(difs []string, k int) {
 	intArry := make(IntHeap, 0)
 	heap.Init(&intArry)

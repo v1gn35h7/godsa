@@ -10,10 +10,10 @@ func MergeSort(list []int64) []int64 {
 
 	left := MergeSort(list[:len(list)/2])
 	right := MergeSort(list[(len(list) / 2):])
-	return merge(left, right)
+	return Merge(left, right)
 }
 
-func merge(list1 []int64, list2 []int64) []int64 {
+func Merge(list1 []int64, list2 []int64) []int64 {
 	var res []int64
 	var li, ri int
 	for li < len(list1) && ri < len(list2) {
@@ -33,8 +33,3 @@ func merge(list1 []int64, list2 []int64) []int64 {
 	}
 	return res
 }
-
-/*
-* Sorting based on callback
- */
- 

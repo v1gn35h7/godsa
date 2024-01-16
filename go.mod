@@ -1,5 +1,5 @@
 module github.com/vicky1115050/godsa
 
-go 1.19
+go 1.21
 
-require golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
+require golang.org/x/sync v0.1.0

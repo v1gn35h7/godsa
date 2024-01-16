@@ -25,3 +25,21 @@ func BenchmarkKnapSack(b *testing.B) {
 		KnapSack01(3, 6, []int16{1, 2, 3}, []int16{10, 15, 40})
 	}
 }
+
+func TestWordBreak(t *testing.T) {
+	want := true
+
+	got := WordBreak("ilike", []string{"i", "like", "sam", "sung", "samsung", "mobile", "ice",
+		"cream", "icecream", "man", "go", "mango"})
+
+	if got != want {
+		t.Errorf("Test case Failed")
+	}
+}
+
+func BenchmarkWordBreak(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		WordBreak("ilike", []string{"i", "like", "sam", "sung", "samsung", "mobile", "ice",
+			"cream", "icecream", "man", "go", "mango"})
+	}
+}
