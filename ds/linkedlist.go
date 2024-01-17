@@ -2,7 +2,7 @@ package ds
 
 type ListNode struct {
 	data int
-	next *Node
+	next *ListNode
 }
 
 // 1
