@@ -14,6 +14,18 @@ type Node struct {
 	left, right *Node
 }
 
+func NewNode(val int) *Node {
+	return &Node{
+		val,
+		nil,
+		nil,
+	}
+}
+
+func (n *Node) Data() int {
+	return n.data
+}
+
 var head *List.Element
 
 func GetNewBt() {
@@ -110,20 +122,20 @@ func levelOrder(root *Node) {
 
 	lqueue := Queue{make([]*Node, 0)}
 
-	lqueue.push(root)
-	temp := lqueue.peek()
+	lqueue.Push(root)
+	temp := lqueue.Peek()
 
 	for temp != nil {
 		if temp.left != nil {
-			lqueue.push(temp.left)
+			lqueue.Push(temp.left)
 		}
 		if temp.right != nil {
-			lqueue.push(temp.right)
+			lqueue.Push(temp.right)
 		}
 		fmt.Println(temp.data)
-		lqueue.pop()
+		lqueue.Pop()
 		// fmt.Println(lqueue.data)
-		temp = lqueue.peek()
+		temp = lqueue.Peek()
 	}
 }
 

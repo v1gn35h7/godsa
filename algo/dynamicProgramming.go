@@ -9,19 +9,17 @@ import (
 * Simple Fibonacci with dynamic programming
  */
 func Fibonacci(n int) int {
-	if n == 0 || n == 1 {
-		return n
-	}
-
-	fib := make(map[int]int)
-	fib[0] = 0
-	fib[1] = 1
+	dp := make([]int, n+1)
+	dp[0] = 0
+	dp[1] = 1
 
 	for i := 2; i <= n; i++ {
-		fib[i] = fib[(i-2)] + fib[(i-1)]
+		dp[i] = dp[i-1] + dp[i-2]
 	}
 
-	return fib[n]
+	fmt.Println(dp)
+
+	return dp[n]
 }
 
 /*
@@ -133,4 +131,55 @@ func WordBreak(input string, dic []string) bool {
 	}
 
 	return dp[len(input)]
+}
+
+func PlanidromPartintion(inpt string) int {
+
+	n := len(inpt)
+
+	if n == 0 || n == 1 {
+		return 0
+	}
+	dp := make([]int, n+1)
+	dp[0] = 0
+	dp[1] = 0
+
+	for i := 2; i <= n; i++ {
+		dp[i] = i - (i - 1)
+	}
+
+	for i := 2; i <= n; i++ {
+
+		if isPalindrome([]rune(inpt[:i])) {
+			dp[i] = 0
+		} else {
+			for j := i - 1; j > 1; j-- {
+				fmt.Println(string([]rune(inpt[(i - j):i])))
+				if isPalindrome([]rune(inpt[(i - j):i])) {
+					cuts := dp[i-j] + 1
+					math.Min(float64(dp[i]), float64(cuts))
+				}
+			}
+		}
+		fmt.Println(i, inpt, dp[i], dp)
+	}
+
+	return dp[n]
+}
+
+func CoinsSum(list []int, sum int) int {
+	fmt.Println(list)
+	n := len(list)
+	dp := make([]int, sum+1)
+
+	dp[0] = 1
+
+	for i := 0; i < n; i++ {
+		for j := list[i]; j <= sum; j++ {
+			dp[j] += dp[j-list[i]]
+			fmt.Println(dp[j], dp)
+		}
+	}
+
+	return dp[sum]
 }
