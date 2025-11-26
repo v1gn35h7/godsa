@@ -1,6 +1,10 @@
 package ds
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func FindNumberOfIslands(mat [5][5]int, v int) {
 	var visited [5][5]bool
@@ -44,4 +48,45 @@ func isSafeToDfs(mat [5][5]int, visited *[5][5]bool, row, col int) bool {
 	} else {
 		return false
 	}
+}
+
+// New 2D array
+func New2dArray(i, j int) [][]int {
+	arr := make([][]int, i)
+
+	for i, _ := range arr {
+		arr[i] = make([]int, j)
+	}
+
+	for x, v := range arr {
+		for y, _ := range v {
+			// Seed the random number generator with current time
+			rand.Seed(time.Now().UnixNano())
+
+			// Generate a random integer between 0 and 100000
+			randomInt := rand.Intn(100000)
+
+			arr[x][y] = randomInt
+		}
+	}
+
+	return arr
+}
+
+// print 2d array
+func Print2dArray(arr [][]int) {
+	i := len(arr)
+
+	if i == 0 {
+		fmt.Println("Zero sized array")
+		return
+	}
+
+	for _, x := range arr {
+		for _, y := range x {
+			fmt.Printf("%d ", y)
+		}
+		fmt.Println("\n")
+	}
+
 }

@@ -101,3 +101,13 @@ func combinationSum3(k int, n int) [][]int {
 
 	return res
 }
+
+func MakeNewHashMap() map[int][]int {
+	hm := make(map[int][]int)
+
+	for i := 0; i < 10; i++ {
+		hm[i] = make([]int, 0)
+	}
+
+	return hm
+}

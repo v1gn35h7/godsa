@@ -1,0 +1,29 @@
+A rate limiter controls the frequency of operations within a system. 
+It manages multiple functions including processing incoming requests, monitoring resource availability, 
+and making decisions to allow or reject requests based on defined policies. 
+This helps maintain system performance and prevents overload situations.
+system sjoukld be therat safe anf support concuttent cojnnedtions
+support global and per user rate limitting
+
+
+Application flow
+=================================================================================
+* Have to monitor resources (tokens) and refill tokens
+* Processing incoming request 
+* male descisions to allow or reject
+* support both global and per user rate limitting
+* should be threst safe and support concurrent connections
+
+
+UML daiagram
+============================================
+* token bucket
+    - KEY -- user id
+    - total tokens
+    - expire
+* request 
+    - user id 
+    - body
+
+
+

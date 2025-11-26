@@ -1,5 +1,7 @@
 package ds
 
+import "fmt"
+
 type ListNode struct {
 	data int
 	next *ListNode
@@ -50,3 +52,26 @@ func merge(head1, head2 *ListNode) *ListNode {
 }
 
 // O(N + M)
+func NewLinkedLIst() *ListNode {
+	head := &ListNode{data: 1}
+
+	temp := head
+	for i := 0; i < 10; i++ {
+		node := &ListNode{
+			data: i + 2,
+		}
+		temp.next = node
+		temp = temp.next
+		fmt.Println(temp)
+	}
+
+	return head
+}
+
+func PrintList(head *ListNode) {
+	for head != nil {
+		fmt.Print(head.data, "-> ")
+		head = head.next
+	}
+
+}

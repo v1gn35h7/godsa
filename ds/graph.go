@@ -9,6 +9,10 @@ import (
 	"math"
 )
 
+type UnionFind struct {
+	Parent map[int]int
+}
+
 type Graph struct {
 	v, e  int
 	edges []edge
